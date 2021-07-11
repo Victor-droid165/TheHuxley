@@ -1,36 +1,35 @@
+def myPop(lista, pos):
+    tam = len(lista)
+    if tam == 0: raise IndexError("A lista estah vazia - nao eh possivel remover elementos")
+    elif pos > tam-1: raise IndexError("Nao eh possivel remover o elemento")
+    else:
+        numero = lista[pos]
+        if pos == 0 or pos == -1*tam: poscerta = lista[pos+1:]
+        elif pos == tam-1 or pos == -1: poscerta = lista[:pos:]
+        else: poscerta = lista[0:pos] + lista[pos+1:]
+        return poscerta, numero
+
+def listaToString(lista):
+    if(len(lista) == 0): return "[ ]"
+    listaString = str(lista)
+    n = len(str(lista))
+    listaString = listaString[1:n-1]
+    listaString = "[ " + listaString.replace(", ", " ") + " ]"
+    return listaString
+
 n = int(input())
 lista = []
 for i in range(n):
     x = int(input())
     lista.append(x)
 posicao = int(input())
-if len(lista) == 0:
-    print("[ ]")
-    print("A lista estah vazia - nao eh possivel remover elementos")
-elif posicao > len(lista)-1:
-    print("[",end=' ')
-    for k in range(len(lista)):
-        print(f'''{lista[k]}''',end=' ')
-    print("]")
-    print("Nao eh possivel remover o elemento")
-else:
-    numero = lista[posicao]
-    for j in range(len(lista)):
-        if lista[j] == numero:
-            index = j
-            break
-    if index == 0 or index == -1*len(lista):
-        poscerta = lista[index+1:]
-    elif index == len(lista)-1 or index == -1:
-        poscerta = lista[:index:]
-    else:
-        poscerta = lista[0:index] + lista[index+1:]
-    print("[",end=' ')
-    for g in range(len(lista)):
-        print(f'''{lista[g]}''',end=' ')
-    print("]")
-    print(f'''O item {numero} serah removido da lista''')
-    print("[",end=' ')
-    for z in range(len(poscerta)):
-        print(f'''{poscerta[z]}''',end=' ')
-    print("]")
+
+listaString = listaToString(lista)
+print(listaString)
+try:
+    listaValorRemovido, valorRemovido = myPop(lista, posicao)
+    print(f'''O item {valorRemovido} serah removido da lista''')
+    lista2String = listaToString(listaValorRemovido)
+    print(lista2String)
+except IndexError as e:
+    print(e)

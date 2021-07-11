@@ -2,21 +2,15 @@ def myRemove(lista, valor):
     tam = len(lista)
     encontrado = False
     indice = -1
-    if(not tam):
-        raise ValueError("A lista estah vazia - nao eh possivel remover elemento")
-    for i in range(tam):
-        if(lista[i] == valor):
-            encontrado = True
-            indice = i
-            break
-    if(encontrado):
-        if(indice+1 < tam):
-            lista = lista[:indice] + lista[indice+1:]
-        else:
-            lista = lista[:indice] + lista[indice+1:]
-        return lista
-    else:
-        raise ValueError(f"Nao eh possivel remover o elemento {valor}")
+    if(not tam): raise ValueError("A lista estah vazia - nao eh possivel remover elemento")
+
+    if (valor in lista):
+        encontrado = True
+        indice = lista.index(valor)
+    if(encontrado): lista = lista[:indice] + lista[indice+1:]
+    else: raise ValueError(f"Nao eh possivel remover o elemento {valor}")
+
+    return lista
 
 def listaToString(lista):
     if(len(lista) == 0): return "[ ]"
@@ -33,11 +27,10 @@ for i in range(n):
 valorASerRemovido = int(input())
 
 listaString = listaToString(lista)
+print(listaString)
 try:
     listaValorRemovido = myRemove(lista, valorASerRemovido)
     lista2String = listaToString(listaValorRemovido)
-    print(listaString)
     print(lista2String)
 except ValueError as e:
-    print(listaString.replace("  ", " "))
     print(e)
